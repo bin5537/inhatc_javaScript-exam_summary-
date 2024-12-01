@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="" alt="" class="rect">
+    <img src="" alt="" class="rect">
+    <img src="" alt="" class="rect">
+    <img src="" alt="" class="rect">
+    <script>
+        const rects = document.querySelectorAll(".rect");
+        rects.forEach((rect, index) => {
+            const width = (index + 1) * 100;
+            const img = `media/img${index + 1}.png`;
+            rect.setAttribute("src", img);
+            rect.setAttribute("width", `${width}px`);
+        })
+    </script>
+</body>
+
+</html>

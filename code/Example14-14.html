@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="openTextFile()">Open</button>
+    <p class="zoomBtnZone">
+        <button class="zoomOutBtn">-</button>
+        <button class="originBtn">100%</button>
+        <button class="zoomInBtn">+</button>
+    </p>
+    <hr>
+    <p class="fontSize">14px</p>
+    <div id="output"></div>
+
+    <!-- JavaScript(ES6) -->
+    <script>
+        function openTextFile() {
+            let input = document.createElement("input");
+            input.type = "file";
+            input.accept = "text/plain";
+            input.onchange = function (e) {
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                reader.onload = function () {
+                    output.innerText = reader.result;
+                }
+                reader.readAsText(file, "utf-8");
+            }
+            input.click();
+        }
+    </script>
+    <!-- jQuery -->
+    <script>
+        let baseFontsize = 14;
+        const defaultFontSize = 14;
+        $(".zoomBtnZone button").on("click", zoomInOut);
+
+        function updateOriginBtnText() {
+            let percent = Math.round((baseFontsize / defaultFontSize) * 100);
+            $(".originBtn").text(percent + "%");
+        }
+
+        function zoomInOut() {
+            if ($(this).hasClass("zoomOutBtn")) {
+                if (baseFontsize <= 8) return false;
+                baseFontsize--;
+            } else if ($(this).hasClass("zoomInBtn")) {
+                if (baseFontsize >= 30) return false;
+                baseFontsize++;
+            } else if ($(this).hasClass("originBtn")) {
+                baseFontsize = defaultFontSize;
+            }
+
+            $(".fontSize").text(baseFontsize + "px");
+            $("#output").css("font-size", baseFontsize + "px");
+            
+            updateOriginBtnText();
+        }
+
+        updateOriginBtnText();
+    </script>
+</body>
+
+</html>
